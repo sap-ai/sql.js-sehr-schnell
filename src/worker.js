@@ -36,9 +36,7 @@ function onModuleReady(SQL) {
                 rowsModified: db.getRowsModified()
             });
         case "each":
-            if (db === null) {
-                createDb();
-            }
+            createDb();
             var callback = function callback(row) {
                 return postMessage({
                     id: data["id"],
