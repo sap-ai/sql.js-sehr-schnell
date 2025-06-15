@@ -8,6 +8,7 @@ var db;
 
 function onModuleReady(SQL) {
     function createDb(data) {
+        if (db != null) db.close();
         db = new SQL.Database(data);
         return db;
     }
