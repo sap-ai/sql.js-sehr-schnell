@@ -8,7 +8,6 @@ var db;
 
 function onModuleReady(SQL) {
     function createDb(data) {
-        if (db != null) db.close();
         db = new SQL.Database(data);
         return db;
     }
@@ -111,13 +110,4 @@ if (typeof require === "function") {
         var event = { data: data };
         global_sqljs_message_handler(event);
     });
-
-    if (typeof process !== "undefined") {
-        process.on("uncaughtException", function uncaughtException(err) {
-            postMessage({ error: err.message });
-        });
-        process.on("unhandledRejection", function unhandledRejection(err) {
-            postMessage({ error: err.message });
-        });
-    }
 }
