@@ -1,18 +1,14 @@
 /* global initSqlJs */
 /* eslint-env worker */
 /* eslint no-restricted-globals: ["error"] */
-
 "use strict";
-
 var db;
-
 function onModuleReady(SQL) {
     function createDb(data) {
         if (db !== null) db.close();
         db = new SQL.Database(data);
         return db;
     }
-
     var buff; var data; var result;
     data = this["data"];
     var config = data["config"] ? data["config"] : {};
@@ -57,11 +53,6 @@ function onModuleReady(SQL) {
                 id: data["id"],
                 buffer: buff
             };
-            try {
-                return postMessage(result, [result]);
-            } catch (error) {
-                return postMessage(result);
-            }
         case "close":
             if (db) {
                 db.close();
@@ -70,24 +61,13 @@ function onModuleReady(SQL) {
                 id: data["id"]
             });
         default:
-            throw new Error("Invalid action : " + (data && data["action"]));
     }
 }
-
-function onError(err) {
-    return postMessage({
-        id: this["data"]["id"],
-        error: err["message"]
-    });
-}
-
 db = null;
 var sqlModuleReady = initSqlJs();
-
 function global_sqljs_message_handler(event) {
     return sqlModuleReady
-        .then(onModuleReady.bind(event))
-        .catch(onError.bind(event));
+    onModuleReady.bind(event)
 }
 
 if (typeof importScripts === "function") {
