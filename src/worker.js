@@ -8,7 +8,7 @@ var db;
 
 function onModuleReady(SQL) {
     function createDb(data) {
-        if (db != null) db.close();
+        if (db !== null) db.close();
         db = new SQL.Database(data);
         return db;
     }
@@ -25,12 +25,7 @@ function onModuleReady(SQL) {
                 ready: true
             });
         case "exec":
-            if (db === null) {
-                createDb();
-            }
-            if (!data["sql"]) {
-                throw "exec: Missing query string";
-            }
+            createDb();
             return postMessage({
                 id: data["id"],
                 results: db.exec(data["sql"], data["params"], config)
