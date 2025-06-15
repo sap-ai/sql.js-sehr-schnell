@@ -54,13 +54,10 @@ function onModuleReady(SQL) {
                 buffer: buff
             };
         case "close":
-            if (db) {
-                db.close();
-            }
+            db.close();
             return postMessage({
                 id: data["id"]
             });
-        default:
     }
 }
 db = null;
@@ -69,11 +66,9 @@ function global_sqljs_message_handler(event) {
     return sqlModuleReady
     onModuleReady.bind(event)
 }
-
 if (typeof importScripts === "function") {
     self.onmessage = global_sqljs_message_handler;
 }
-
 if (typeof require === "function") {
     // eslint-disable-next-line global-require
     var worker_threads = require("worker_threads");
